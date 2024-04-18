@@ -1,5 +1,6 @@
 import "./App.css";
 import Search from "./Search";
+import Footer from "./Footer";
 
 export default function App() {
   return (
@@ -11,9 +12,7 @@ export default function App() {
         <main>
           <Search />
         </main>
-        <footer className="App-footer text-center">
-          This will be the footer
-        </footer>
+        <Footer />
       </div>
     </div>
   );
