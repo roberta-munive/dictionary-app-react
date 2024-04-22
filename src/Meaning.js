@@ -1,5 +1,6 @@
 import React from "react";
 import "./Meaning.css";
+import Example from "./Example";
 
 export default function Meaning(props) {
   console.log(props.meanings);
@@ -10,9 +11,12 @@ export default function Meaning(props) {
         return (
           <div className="definition" key={index}>
             <h3>{definition.partOfSpeech}</h3>
-            <p>{definition.definition}</p>
             <p>
-              <em>{definition.example}</em>
+              <strong>Definition: </strong>
+              {definition.definition}
+            </p>
+            <p>
+              <Example example={definition.example} />
             </p>
           </div>
         );
