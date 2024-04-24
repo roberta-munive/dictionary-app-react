@@ -4,7 +4,6 @@ import Example from "./Example";
 import Synonyms from "./Synonyms";
 
 export default function Meaning(props) {
-  console.log(props.synonyms);
   return (
     <div className="Meaning">
       {props.meanings.map(function (definition, index) {
