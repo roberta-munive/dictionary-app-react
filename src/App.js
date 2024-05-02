@@ -5,7 +5,7 @@ import Footer from "./Footer";
 export default function App() {
   return (
     <div className="App">
-      <div className="container">
+      <div className="container app-container">
         <header className="App-header">
           <h1 className="text-center">Dictionary</h1>
         </header>

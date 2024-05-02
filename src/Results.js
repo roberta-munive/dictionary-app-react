@@ -6,7 +6,7 @@ export default function Results(props) {
   if (props.results) {
     return (
       <div className="Results">
-        <div className="word-container border rounded">
+        <div className="word-container section">
           <h2 className="word">{props.results.word}</h2>
           <p className="phonetic">{props.results.phonetic}</p>
         </div>

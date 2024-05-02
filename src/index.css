@@ -5,7 +5,8 @@
 }
 
 /* have the content fill the entire height of the screen so there is no blank space at the bottom */
-html {
+html,
+body {
   height: 100%;
 }
 
@@ -16,8 +17,11 @@ body {
     ),
     url("./images/book-image.jpg");
 
+  background-attachment: fixed;
+  background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
   font-family: "Finlandica", sans-serif;
   font-optical-sizing: auto;
+  margin: 0 auto;
 }

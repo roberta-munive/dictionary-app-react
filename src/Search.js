@@ -35,17 +35,21 @@ export default function Search() {
 
   return (
     <div className="Search">
-      <div className="searchbar-container border rounded">
-        <p className="text-center">Look up a word</p>
+      <div className="section searchbar-container">
+        <p className="text-center fs-4 fw-medium text-body-secondary">
+          Look up a word
+        </p>
         <form className="definition-form" onSubmit={handleSubmit}>
           <div className="input-group justify-content-center">
             <input
               type="search"
-              className="word-input"
+              className="word-input form-control"
               placeholder="Enter a word"
               onChange={updateWord}
             />
-            <button className="search-btn">Search</button>
+            <button className="search-btn btn btn-outline-secondary">
+              Search
+            </button>
           </div>
         </form>
       </div>
