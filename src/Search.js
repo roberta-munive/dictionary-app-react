@@ -13,6 +13,10 @@ export default function Search() {
   //     status: "not_found"
   //  }
 
+  function handleError() {
+    setResults(null);
+  }
+
   function getResults() {
     let apiKey = "cf14b4c0f0c0d7a973ee3b4e430t2bo5";
     let apiUrl = `https://api.shecodes.io/dictionary/v1/define?word=${word}&key=${apiKey}`;
@@ -20,6 +24,9 @@ export default function Search() {
   }
 
   function handleResponse(response) {
+    if (response.data.status === "not_found") {
+      return handleError();
+    }
     setResults(response.data);
   }
 
