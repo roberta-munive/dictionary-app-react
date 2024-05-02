@@ -1,1 +1,12 @@
+.synonyms-container {
+  border: 1px solid #ddd;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px 5px;
+}
 
+/* .synonyms-container > * targets each individual synonym item and applies the flex property 
+    flex: 1 1 50%; evenly distributes the available space among the items and sets a maximum width of 50% for each item*/
+.synonyms-container > * {
+  flex: 1 1 50%;
+}
