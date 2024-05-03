@@ -59,7 +59,6 @@ export default function Search(props) {
                 type="search"
                 className="word-input form-control"
                 placeholder="Enter a word"
-                autoFocus="on"
                 onChange={updateWord}
               />
               <button className="search-btn btn btn-outline-secondary">
