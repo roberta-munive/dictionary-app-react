@@ -3,9 +3,10 @@ import axios from "axios";
 import "./Search.css";
 import Results from "./Results";
 
-export default function Search() {
+export default function Search(props) {
   let [results, setResults] = useState(null);
-  let [word, setWord] = useState("");
+  let [word, setWord] = useState(props.defaultWord);
+  let [hasLoaded, setHasLoaded] = useState(false);
   //note:  if use null as default for word, the looks up the definition for the word "null"
   // when use "", API returns
   //  {
@@ -18,6 +19,7 @@ export default function Search() {
   }
 
   function getResults() {
+    //   API documentation: https://www.shecodes.io/learn/apis/dictionary
     let apiKey = "cf14b4c0f0c0d7a973ee3b4e430t2bo5";
     let apiUrl = `https://api.shecodes.io/dictionary/v1/define?word=${word}&key=${apiKey}`;
     axios.get(apiUrl).then(handleResponse);
@@ -32,7 +34,11 @@ export default function Search() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    //   API documentation: https://www.shecodes.io/learn/apis/dictionary
+    getResults();
+  }
+
+  function load() {
+    setHasLoaded(true);
     getResults();
   }
 
@@ -40,27 +46,33 @@ export default function Search() {
     setWord(event.target.value);
   }
 
-  return (
-    <div className="Search">
-      <div className="section searchbar-container">
-        <p className="text-center fs-4 fw-medium text-body-secondary">
-          Look up a word
-        </p>
-        <form className="definition-form" onSubmit={handleSubmit}>
-          <div className="input-group justify-content-center">
-            <input
-              type="search"
-              className="word-input form-control"
-              placeholder="Enter a word"
-              onChange={updateWord}
-            />
-            <button className="search-btn btn btn-outline-secondary">
-              Search
-            </button>
-          </div>
-        </form>
+  if (hasLoaded) {
+    return (
+      <div className="Search">
+        <div className="section searchbar-container">
+          <p className="text-center fs-4 fw-medium text-body-secondary">
+            Look up a word
+          </p>
+          <form className="definition-form" onSubmit={handleSubmit}>
+            <div className="input-group justify-content-center">
+              <input
+                type="search"
+                className="word-input form-control"
+                placeholder="Enter a word"
+                autoFocus="on"
+                onChange={updateWord}
+              />
+              <button className="search-btn btn btn-outline-secondary">
+                Search
+              </button>
+            </div>
+          </form>
+        </div>
+        <Results results={results} />
       </div>
-      <Results results={results} />
-    </div>
-  );
+    );
+  } else {
+    load();
+    return "Loading....";
+  }
 }

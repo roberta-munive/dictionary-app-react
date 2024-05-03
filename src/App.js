@@ -10,7 +10,7 @@ export default function App() {
           <h1 className="text-center">Dictionary</h1>
         </header>
         <main>
-          <Search />
+          <Search defaultWord="hello" />
         </main>
         <Footer />
       </div>
