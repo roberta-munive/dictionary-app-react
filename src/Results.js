@@ -15,6 +15,10 @@ export default function Results(props) {
       </div>
     );
   } else {
-    return null;
+    return (
+      <div className="error-message text-danger m-4">
+        <h3>Word not found</h3>
+      </div>
+    );
   }
 }
