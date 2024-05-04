@@ -29,26 +29,19 @@ export default function Search(props) {
     setPhotos(null);
   }
 
-  function getResults() {
-    //   API documentation: https://www.shecodes.io/learn/apis/dictionary
+  function getDictionaryResults() {
+    //   Dictionary API documentation: https://www.shecodes.io/learn/apis/dictionary
     const apiKeyDictionary = "cf14b4c0f0c0d7a973ee3b4e430t2bo5";
     let apiUrlDictionary = `https://api.shecodes.io/dictionary/v1/define?word=${word}&key=${apiKeyDictionary}`;
     axios.get(apiUrlDictionary).then(handleDictionaryResponse);
 
-    // API documentation: https://pixabay.com/api/docs/
+    // Image API documentation: https://www.shecodes.io/learn/apis/images
+  }
 
-    const apiKeyImages = "43718622-0685ffb1ae2349b6dd606a73e";
-    let apiUrlImages = `https://pixabay.com/api/?key=${apiKeyImages}&q=${word}&image_type=photo&per_page=6&orientation=horizontal`;
+  function getImageResults() {
+    const apiKeyImages = "cf14b4c0f0c0d7a973ee3b4e430t2bo5";
+    let apiUrlImages = `https://api.shecodes.io/images/v1/search?query=${word}&key=${apiKeyImages}`;
     axios.get(apiUrlImages).then(handleImageResponse);
-
-    // API documentation: https://www.pexels.com/api/documentation/
-    // const apiKeyPexels =
-    //   "cRIibDGHhjFTw1CKTM7xfIqULvs2uFjVC8y9O2oSTyhLWoxqm8IbPhZx";
-    // // https://stackoverflow.com/questions/43462367/how-to-overcome-the-cors-issue-in-reactjs
-    // let apiUrlPexels = `https://api.pexels.com/v1/search?query=${word}&per_page=1`;
-    // https://stackoverflow.com/questions/44245588/how-to-send-authorization-header-with-axios
-    // let headers = { Authorization: `Bearer ${apiKeyPexels}` };
-    // axios.get(apiUrlPexels, { headers: headers }).then(handlePexelsResponse);
   }
 
   function handleDictionaryResponse(response) {
@@ -56,12 +49,11 @@ export default function Search(props) {
       return handleDictionaryError();
     }
     setResults(response.data);
+    getImageResults();
   }
 
   function handleImageResponse(response) {
-    if (response.status !== 200) {
-      return handleImageError();
-    } else if (!response.data) {
+    if (!response.data) {
       return handleImageError();
     }
     setPhotos(response.data);
@@ -69,12 +61,12 @@ export default function Search(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    getResults();
+    getDictionaryResults();
   }
 
   function load() {
     setHasLoaded(true);
-    getResults();
+    getDictionaryResults();
   }
 
   function updateWord(event) {
