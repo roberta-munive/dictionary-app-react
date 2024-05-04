@@ -3,10 +3,13 @@ import axios from "axios";
 import "./Search.css";
 import Results from "./Results";
 
+// All requests made with the client will be authenticated
+
 export default function Search(props) {
   let [results, setResults] = useState(null);
   let [word, setWord] = useState(props.defaultWord);
   let [hasLoaded, setHasLoaded] = useState(false);
+
   //note:  if use null as default for word, the looks up the definition for the word "null"
   // when use "", API returns
   //  {
@@ -20,16 +23,30 @@ export default function Search(props) {
 
   function getResults() {
     //   API documentation: https://www.shecodes.io/learn/apis/dictionary
-    let apiKey = "cf14b4c0f0c0d7a973ee3b4e430t2bo5";
-    let apiUrl = `https://api.shecodes.io/dictionary/v1/define?word=${word}&key=${apiKey}`;
-    axios.get(apiUrl).then(handleResponse);
+    const apiKeyDictionary = "cf14b4c0f0c0d7a973ee3b4e430t2bo5";
+    let apiUrlDictionary = `https://api.shecodes.io/dictionary/v1/define?word=${word}&key=${apiKeyDictionary}`;
+    axios.get(apiUrlDictionary).then(handleDictionaryResponse);
+
+    // API documentation: https://www.pexels.com/api/documentation/
+    const apiKeyPexels =
+      "cRIibDGHhjFTw1CKTM7xfIqULvs2uFjVC8y9O2oSTyhLWoxqm8IbPhZx";
+    // https://stackoverflow.com/questions/43462367/how-to-overcome-the-cors-issue-in-reactjs
+    let apiUrlPexels = `https://api.pexels.com/v1/search?query=${word}&per_page=1`;
+    // https://stackoverflow.com/questions/44245588/how-to-send-authorization-header-with-axios
+    let headers = { Authorization: `Bearer ${apiKeyPexels}` };
+    axios.get(apiUrlPexels, { headers: headers }).then(handlePexelsResponse);
   }
 
-  function handleResponse(response) {
+  function handleDictionaryResponse(response) {
     if (response.data.status === "not_found") {
       return handleError();
     }
     setResults(response.data);
+  }
+
+  function handlePexelsResponse(response) {
+    console.log("In handlePexelsResponse()");
+    console.log(response.status);
   }
 
   function handleSubmit(event) {
